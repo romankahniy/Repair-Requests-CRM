@@ -94,9 +94,7 @@ class TestClientsRouter:
 
         assert response.status_code == 422
 
-    async def test_list_clients_admin(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client
-    ):
+    async def test_list_clients_admin(self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client):
         response = await client.get("/clients", headers=admin_headers)
 
         assert response.status_code == 200
@@ -109,9 +107,7 @@ class TestClientsRouter:
         assert data["total_count"] >= 1
         assert len(data["clients"]) >= 1
 
-    async def test_list_clients_worker(
-        self, client: AsyncClient, worker_headers: dict[str, str], test_client: Client
-    ):
+    async def test_list_clients_worker(self, client: AsyncClient, worker_headers: dict[str, str], test_client: Client):
         response = await client.get("/clients", headers=worker_headers)
 
         assert response.status_code == 200
@@ -161,9 +157,7 @@ class TestClientsRouter:
         data = response.json()
         assert "not found" in data["detail"].lower()
 
-    async def test_update_client_admin(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client
-    ):
+    async def test_update_client_admin(self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client):
         response = await client.patch(
             f"/clients/{test_client.id}",
             headers=admin_headers,
@@ -179,9 +173,7 @@ class TestClientsRouter:
         assert data["phone"] == "+1999999999"
         assert data["email"] == test_client.email
 
-    async def test_update_client_email(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client
-    ):
+    async def test_update_client_email(self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client):
         response = await client.patch(
             f"/clients/{test_client.id}",
             headers=admin_headers,
@@ -207,9 +199,7 @@ class TestClientsRouter:
 
         assert response.status_code == 403
 
-    async def test_update_client_partial(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client
-    ):
+    async def test_update_client_partial(self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client):
         response = await client.patch(
             f"/clients/{test_client.id}",
             headers=admin_headers,
@@ -234,9 +224,7 @@ class TestClientsRouter:
 
         assert response.status_code == 404
 
-    async def test_delete_client_admin(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client
-    ):
+    async def test_delete_client_admin(self, client: AsyncClient, admin_headers: dict[str, str], test_client: Client):
         response = await client.delete(f"/clients/{test_client.id}", headers=admin_headers)
 
         assert response.status_code == 204
@@ -286,9 +274,7 @@ class TestClientsRouter:
         assert data["total_count"] == 0
         assert len(data["clients"]) == 0
 
-    async def test_create_multiple_clients_same_email_allowed(
-        self, client: AsyncClient, admin_headers: dict[str, str]
-    ):
+    async def test_create_multiple_clients_same_email_allowed(self, client: AsyncClient, admin_headers: dict[str, str]):
         client_data = {
             "full_name": "Duplicate Email User",
             "email": "duplicate@example.com",

@@ -57,9 +57,7 @@ class TestTicketsRouter:
         assert data["status"] == "new"
         assert data["client"]["email"] == "john@example.com"
 
-    async def test_list_tickets_admin(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_list_tickets_admin(self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket):
         response = await client.get("/tickets", headers=admin_headers)
 
         assert response.status_code == 200
@@ -67,9 +65,7 @@ class TestTicketsRouter:
         assert "tickets" in data
         assert data["total_count"] >= 1
 
-    async def test_list_tickets_worker(
-        self, client: AsyncClient, worker_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_list_tickets_worker(self, client: AsyncClient, worker_headers: dict[str, str], test_ticket: Ticket):
         response = await client.get("/tickets", headers=worker_headers)
 
         assert response.status_code == 200
@@ -78,9 +74,7 @@ class TestTicketsRouter:
         for ticket in data["tickets"]:
             assert ticket["assigned_worker_full_name"] is not None
 
-    async def test_get_ticket_success(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_get_ticket_success(self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket):
         response = await client.get(f"/tickets/{test_ticket.id}", headers=admin_headers)
 
         assert response.status_code == 200
@@ -158,9 +152,7 @@ class TestTicketsRouter:
 
         assert response.status_code == 403
 
-    async def test_delete_ticket_admin(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_delete_ticket_admin(self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket):
         response = await client.delete(f"/tickets/{test_ticket.id}", headers=admin_headers)
 
         assert response.status_code == 204
@@ -168,18 +160,14 @@ class TestTicketsRouter:
         get_response = await client.get(f"/tickets/{test_ticket.id}", headers=admin_headers)
         assert get_response.status_code == 404
 
-    async def test_search_by_title(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_search_by_title(self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket):
         response = await client.get(f"/tickets?title={test_ticket.title[:4]}", headers=admin_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert data["total_count"] >= 1
 
-    async def test_filter_by_status(
-        self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket
-    ):
+    async def test_filter_by_status(self, client: AsyncClient, admin_headers: dict[str, str], test_ticket: Ticket):
         response = await client.get("/tickets?status=new", headers=admin_headers)
 
         assert response.status_code == 200

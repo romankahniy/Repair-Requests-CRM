@@ -90,4 +90,3 @@ class TestUsersRouter:
 
         get_response = await client.get(f"/users/{worker_user.id}", headers=admin_headers)
         assert get_response.status_code == 404
-        

@@ -19,7 +19,9 @@ class TicketRepository:
 
     async def get_by_id(self, ticket_id: int) -> Ticket | None:
         result = await self.db.scalar(
-            select(Ticket).where(Ticket.id == ticket_id).options(joinedload(Ticket.client), joinedload(Ticket.assigned_worker))
+            select(Ticket)
+            .where(Ticket.id == ticket_id)
+            .options(joinedload(Ticket.client), joinedload(Ticket.assigned_worker))
         )
         return result
 
