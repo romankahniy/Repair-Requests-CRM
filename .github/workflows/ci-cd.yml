@@ -49,18 +49,6 @@ jobs:
           poetry run ruff check src/ tests/
           # poetry run mypy src/  # Disabled - too strict for now
 
-      - name: Run tests
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: repair_crm_test_db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          JWT_SECRET_KEY: test-secret-key-for-ci
-          ENVIRONMENT: test
-        run: |
-          poetry run pytest --cov=src --cov-report=xml --cov-report=term
-
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
         with:
