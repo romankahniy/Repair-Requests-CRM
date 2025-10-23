@@ -12,7 +12,6 @@ from src.database.base import Base
 from src.main import app
 from src.users.models import User, UserRole
 
-
 TEST_DATABASE_URL = f"{settings.database_url}_test"
 
 

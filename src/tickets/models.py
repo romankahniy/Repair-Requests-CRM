@@ -1,10 +1,17 @@
+from __future__ import annotations
+
 from datetime import datetime
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
 from sqlalchemy import ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.base import Base
+
+if TYPE_CHECKING:
+    from src.clients.models import Client
+    from src.users.models import User
 
 
 class TicketStatus(StrEnum):
@@ -28,8 +35,8 @@ class Ticket(Base):
         ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True
     )
 
-    client: Mapped["Client"] = relationship("Client", back_populates="tickets")
-    assigned_worker: Mapped["User | None"] = relationship("User", back_populates="assigned_tickets")
+    client: Mapped[Client] = relationship("Client", back_populates="tickets")
+    assigned_worker: Mapped[User | None] = relationship("User", back_populates="assigned_tickets")
 
     def __repr__(self) -> str:
         return f"Ticket(id={self.id}, title={self.title!r}, status={self.status})"

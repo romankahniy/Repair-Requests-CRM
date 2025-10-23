@@ -3,7 +3,6 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.clients.models import Client
-from src.users.models import User
 
 
 @pytest.fixture
@@ -262,7 +261,6 @@ class TestClientsRouter:
     async def test_list_clients_empty_database(
         self, client: AsyncClient, admin_headers: dict[str, str], db_session: AsyncSession
     ):
-        from src.clients.models import Client as ClientModel
 
         await db_session.execute("DELETE FROM clients")
         await db_session.commit()

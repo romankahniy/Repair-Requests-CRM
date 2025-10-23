@@ -7,7 +7,6 @@ from sqlalchemy.exc import IntegrityError
 
 from src.core.exceptions import AppException
 
-
 logger = logging.getLogger(__name__)
 
 

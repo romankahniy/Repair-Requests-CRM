@@ -1,7 +1,14 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.base import Base
+
+if TYPE_CHECKING:
+    from src.tickets.models import Ticket
 
 
 class Client(Base):
@@ -14,7 +21,7 @@ class Client(Base):
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     address: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
-    tickets: Mapped[list["Ticket"]] = relationship("Ticket", back_populates="client", cascade="all, delete-orphan")
+    tickets: Mapped[list[Ticket]] = relationship("Ticket", back_populates="client", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"Client(id={self.id}, full_name={self.full_name!r}, email={self.email!r})"

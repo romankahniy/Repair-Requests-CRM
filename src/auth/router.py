@@ -10,7 +10,6 @@ from src.auth.service import AuthService
 from src.core.dependencies import get_db
 from src.users.schemas import UserResponse
 
-
 router = APIRouter()
 
 

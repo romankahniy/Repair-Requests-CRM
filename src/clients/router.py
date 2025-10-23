@@ -8,7 +8,6 @@ from src.clients.schemas import ClientCreate, ClientListResponse, ClientResponse
 from src.clients.service import ClientService
 from src.core.dependencies import get_db
 
-
 router = APIRouter()
 
 

@@ -8,7 +8,7 @@ from src.database.session import engine
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    async with engine.begin() as conn:
+    async with engine.begin():
         pass
 
     yield

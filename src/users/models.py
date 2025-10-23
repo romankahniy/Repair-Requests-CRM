@@ -1,9 +1,15 @@
+from __future__ import annotations
+
 from enum import StrEnum
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database.base import Base
+
+if TYPE_CHECKING:
+    from src.tickets.models import Ticket
 
 
 class UserRole(StrEnum):
@@ -22,7 +28,7 @@ class User(Base):
     role: Mapped[UserRole] = mapped_column(String(20), nullable=False, index=True)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
 
-    assigned_tickets: Mapped[list["Ticket"]] = relationship(
+    assigned_tickets: Mapped[list[Ticket]] = relationship(
         "Ticket", back_populates="assigned_worker", cascade="all, delete-orphan"
     )
 

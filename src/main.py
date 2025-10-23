@@ -18,7 +18,6 @@ from src.middleware.logging import LoggingMiddleware
 from src.tickets.router import router as tickets_router
 from src.users.router import router as users_router
 
-
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="Mini-CRM for managing repair requests with role-based access",

@@ -11,7 +11,6 @@ from src.core.security import decode_token
 from src.users.exceptions import UserInactiveError, UserNotFoundError
 from src.users.models import User, UserRole
 
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 

@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.auth.utils import hash_password
 from src.users.exceptions import UserAlreadyExistsError, UserNotFoundError
-from src.users.models import User, UserRole
+from src.users.models import UserRole
 from src.users.repository import UserRepository
 from src.users.schemas import UserCreate, UserResponse, UserUpdate
 
